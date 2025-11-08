@@ -92,7 +92,7 @@
 
         <button type="submit" class="btn btn-outline-primary" id="submitButton" onclick="Submit()" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Use this button to generate details." style="display: none;">Inspect Property <i class="bi bi-database-down"></i></button>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a id="ptManager" href="https://experience.adobe.com/#/@bskyb/sname:prod/platform/data-collection/tags/companies/CO276e81907aa34ea295d7a2c89582ff7d/properties" target="_blank" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Use this link to view list of properties on Adobe Launch UI.">
+          <a id="ptManager" href="https://experience.adobe.com/#/@bskyb/sname:prod/platform/data-collection/tags/companies/CO276e81907aa34ea295d7a2c89582ff7d/properties" target="_blank" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Use this link to view list of properties on Adobe Launch UI.">
             <em>Adobe Launch Property Manager.</em>
           <a/>
         </div>
@@ -109,38 +109,32 @@
               <button type="button" class="btn btn-outline-secondary" onclick="resetButton()" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Use this button to reset the SDR tool.">Reset</button>
             </div>
           </div>
+          <p id="allDetails" style="display: none;"></p>
+          <div class="d-flex justify-content-center gap-2 mb-2">
+              <button class="btn btn-primary btn-sm" id="scrollerLeft" onclick="scrollTable(-1500)" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip" data-bs-title="Use this button to scroll left to the table."><i class="bi bi-arrow-left"></i></button>
+              <button class="btn btn-primary btn-sm" id="scrollerRight" onclick="scrollTable(1500)" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Use this button to scroll right to the table."><i class="bi bi-arrow-right"></i></button>
+          </div>
+          <div class="table-responsive table-container" id="tableContainer3" style="padding-bottom: 50px;white-space: nowrap;max-height: 800px;overflow-y: auto;">
+            <table class="table table-bordered table-hover" id="myTable3" style="display: none;">
+              <thead style="position: sticky;top:0">
+                <tr class="table-primary font-monospace">
+                  <th scope="col" class="text-start"><u>S.no</u></th>
+                  <th scope="col" class="text-start"><u>Component Type</u></th>
+                  <th scope="col" class="text-start"><u>Component Name</u></th>
+                  <th scope="col" class="text-start"><u>Status</u></th>
+                  <th scope="col" class="text-start"><u>Currently Live in Production?</u></th>
+                  <th scope="col" class="text-start"><u>Latest Revision Number</u></th>
+                  <th scope="col" class="text-start"><u>Consultant Details</u></th>
+                  <th scope="col" class="text-start"><u>Configuration Details</u></th>
+                </tr>
+              </thead>
+              <tbody id="tableBody3" class="table-info table-group-divider"></tbody>
+            </table>
+          </div>
         </div>
       </form>
-      <p id="allDetails" style="display: none;"></p>
     </div>
-    <div class="d-flex justify-content-center gap-2 mb-2">
-      <button class="btn btn-primary btn-sm" id="scrollerLeft" onclick="scrollTable(-1500)" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip" data-bs-title="Use this button to scroll left to the table."><i class="bi bi-arrow-left"></i></button>
-      <button class="btn btn-primary btn-sm" id="scrollerRight" onclick="scrollTable(1500)" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Use this button to scroll right to the table."><i class="bi bi-arrow-right"></i></button>
-  </div>
-
-    <div class="mx-5">
-      <div class="table-responsive table-container" id="tableContainer3" style="padding-bottom: 50px;white-space: nowrap;max-height: 800px;overflow-y: auto;">
-        <table class="table table-bordered table-hover" id="myTable3" style="display: none;">
-          <thead style="position: sticky;top:0">
-            <tr class="table-primary font-monospace">
-              <th scope="col" class="text-start"><u>S.no</u></th>
-              <th scope="col" class="text-start"><u>Component Type</u></th>
-              <th scope="col" class="text-start"><u>Component Name</u></th>
-              <th scope="col" class="text-start"><u>Status</u></th>
-              <th scope="col" class="text-start"><u>Currently Live in Production?</u></th>
-              <th scope="col" class="text-start"><u>Latest Revision Number</u></th>
-              <th scope="col" class="text-start"><u>Consultant Details</u></th>
-              <th scope="col" class="text-start"><u>Configuration Details</u></th>
-            </tr>
-          </thead>
-          <tbody id="tableBody3" class="table-info table-group-divider"></tbody>
-        </table>
-      </div>
-    </div>
-
-    
-
-    
+        
     <nav class="navbar fixed-bottom" style="background-color: whitesmoke;">
       <div class="container justify-content-center">
         <span class="navbar-brand mb-0 h1 fw-bolder fst-italic"><i class="bi bi-envelope-at-fill mx-3"></i>Admin Contact : rishabhbhalla98@gmail.com</span>
