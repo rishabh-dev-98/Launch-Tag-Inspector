@@ -770,13 +770,11 @@ function download() {
   }
 
   // Formats Rule Details modals with tabs: Events, Conditions, Actions.
-  // For everything else (e.g., Data Elements, Extensions), we keep the original plain extraction.
   function extractModalDetails(modal) {
     if (!modal) return "";
     const body = modal.querySelector(".modal-body");
     if (!body) return "";
 
-    // Collect tab links (Bootstrap)
     const tabLinks = Array.from(
       modal.querySelectorAll('.nav-tabs [data-bs-toggle="tab"], .nav-tabs .nav-link, .nav-tabs a')
     ).map(el => ({
@@ -785,17 +783,14 @@ function download() {
       target: el.getAttribute("data-bs-target") || el.getAttribute("href")
     }));
 
-    // Do we have the trio (events/conditions/actions)?
     const hasECA = ["events", "conditions", "actions"].every(h =>
       tabLinks.some(t => t.title.toLowerCase().includes(h))
     );
 
-    // If not E/C/A, return the original cleaned text (don't touch Data Elements / Extensions)
     if (!hasECA) {
       return cleanText(body.innerText);
     }
 
-    // Build "Events\n<details>\n\nConditions\n<details>\n\nActions\n<details>"
     const sections = [];
     ["Events", "Conditions", "Actions"].forEach(label => {
       const link = tabLinks.find(t => t.title.toLowerCase().includes(label.toLowerCase()));
@@ -818,11 +813,36 @@ function download() {
     return sections.join("\n\n").trim();
   }
 
+  // ---------- choose rows to export ----------
+  const headerRows = table.tHead ? Array.from(table.tHead.rows) : Array.from(table.querySelectorAll("thead tr"));
+  const bodyRows = table.tBodies.length
+    ? Array.from(table.tBodies[0].rows)
+    : Array.from(table.querySelectorAll("tbody tr"));
+
+  // A row is considered "visible" if it's not hidden via attribute/class/style.
+  const isRowVisible = (row) => {
+    if (!row) return false;
+    if (row.hidden) return false;
+    const cs = getComputedStyle(row);
+    if (cs.display === "none" || cs.visibility === "hidden") return false;
+    if (row.classList.contains("d-none")) return false;
+    return true;
+  };
+
+  const visibleBodyRows = bodyRows.filter(isRowVisible);
+
+  // If some rows are hidden, we assume a filter/search is active.
+  const isFilterActive = visibleBodyRows.length !== bodyRows.length;
+
+  const rowsForExport = [
+    ...headerRows,                         // always include header(s)
+    ...(isFilterActive ? visibleBodyRows : bodyRows) // filtered vs all
+  ];
+
   // ---------- build export array ----------
   const aoa = [];
-  const rows = table.querySelectorAll("tr");
 
-  rows.forEach(row => {
+  rowsForExport.forEach(row => {
     const cells = Array.from(row.querySelectorAll("th, td"));
     if (!cells.length) return;
 
@@ -840,7 +860,6 @@ function download() {
         const modal = getModalByTrigger(trigger);
         const modalDetails = extractModalDetails(modal);
         if (modalDetails) {
-          // Separate base cell text from modal block
           combinedText += (combinedText ? "\n\n" : "") + modalDetails;
         }
       });
@@ -868,6 +887,7 @@ function download() {
   XLSX.utils.book_append_sheet(wb, ws, "Details");
   XLSX.writeFile(wb, `${ptId}_SDR.xlsx`);
 }
+
 
 function resetButton () {
     document.getElementById("optionSelect").value = 0
