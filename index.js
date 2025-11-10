@@ -404,6 +404,17 @@ function Submit () {
                         });
                     });
                 }, 500);
+                var link = 'https://experience.adobe.com/#/@' + companyId.split("0")[0] + '/sname:prod/platform/data-collection/tags/companies/' + cId + '/properties/' + ptId + '/rules/' + variable[i].id;
+                const linkDetails = document.createElement('td');
+                linkDetails.innerHTML = `
+                <a href="${link}" target="_blank">
+                    ${link}
+                </a>
+                `;
+
+                linkDetails.className = "font-monospace";
+                newRow.appendChild(linkDetails);
+
             }).catch((error) => {
                     console.log(error);
                 });
@@ -501,6 +512,17 @@ function Submit () {
                         });
                     });
                 }, 500);
+
+                var link = 'https://experience.adobe.com/#/@' + companyId.split("0")[0] + '/sname:prod/platform/data-collection/tags/companies/' + cId + '/properties/' + ptId + '/dataElements/' + variable[i].id;
+                const linkDetails = document.createElement('td');
+                linkDetails.innerHTML = `
+                <a href="${link}" target="_blank">
+                    ${link}
+                </a>
+                `;
+
+                linkDetails.className = "font-monospace";
+                newRow.appendChild(linkDetails);
             } else if (type == "Extension") {           
                 const extension = variable[i];
                 const attrs = extension.attributes;
@@ -583,7 +605,17 @@ function Submit () {
                                 .catch(() => alert('Failed to copy.'));
                         });
                     });
-                }, 500);     
+                }, 500);    
+                var link = 'https://experience.adobe.com/#/@' + companyId.split("0")[0] + '/sname:prod/platform/data-collection/tags/companies/' + cId + '/properties/' + ptId + '/extensions/' + variable[i].id;
+                const linkDetails = document.createElement('td');
+                linkDetails.innerHTML = `
+                <a href="${link}" target="_blank">
+                    ${link}
+                </a>
+                `;
+
+                linkDetails.className = "font-monospace";
+                newRow.appendChild(linkDetails);
             }
             // Append the new row to the table body
             document.getElementById('tableBody3').appendChild(newRow);
